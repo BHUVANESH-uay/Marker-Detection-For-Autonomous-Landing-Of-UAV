@@ -30,8 +30,8 @@ The approach for marker detection and UAV autonomous landing is based on a syste
 Extensive training of the YOLOv5 model yielded the following results:
 
 - **Detection Accuracy:** Achieved a 75.965% success rate in detecting markers.
-- **Precision:** Attained 99.544% precision at an Intersection over Union (IoU) threshold of 0.6.
-- **Recall:** Achieved a 99.925% recall at an IoU threshold of 0.6.
+- **Precision:** Attained 99.544 mAP metrics precision at an Intersection over Union (IoU) threshold of 0.6.
+- **Recall:** Achieved a 99.925 mAP metrics recall at an IoU threshold of 0.6.
 - **F1-Score:** The model reached an F1-Score of 0.99734, reflecting its balanced performance in precision and recall.
 
 ## Real-Time Testing
