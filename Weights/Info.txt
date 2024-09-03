@@ -1,3 +1,0 @@
-The weights files obtained after extensive regression training on our custom dataset are now ready for use.
-The 'best.pt' file, representing the optimal model, can be seamlessly integrated into your project to detectmarkers with high accuracy. 
-This model has been fine-tuned to perform reliably across various scenarios, ensuring robust and precise marker detection.
