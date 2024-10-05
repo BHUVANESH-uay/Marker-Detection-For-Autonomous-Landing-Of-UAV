@@ -1,4 +1,4 @@
-# Marker Detection For Autonomous Landing Of UAV's
+# Marker Detection For Autonomous Landing Of UAVs
 
 # Overview
 This project is dedicated to creating a reliable marker detection system for the autonomous landing of Unmanned Aerial Vehicles (UAVs). By leveraging advanced deep learning models, particularly YOLOv5, the system is designed to recognize markers in scenes captured by drones flying at various altitudes. The primary objective is to improve the accuracy of autonomous landings, especially in situations where GPS signals are weak or unavailable.
@@ -34,8 +34,13 @@ Extensive training of the YOLOv5 model yielded the following results:
 - **Recall:** Achieved a 99.925 mAP metrics recall at an IoU threshold of 0.6.
 - **F1-Score:** The model reached an F1-Score of 0.99734, reflecting its balanced performance in precision and recall.
 
+  
 ## Real-Time Testing
-Testing in real-world scenarios showed promising outcomes, with the model achieving an 88% precision in landing accuracy. Further refinements are planned to eliminate minor inaccuracies and boost the system’s dependability.
+Real-time testing was conducted to evaluate the performance of the trained model in live scenarios. Below is an image demonstrating the **real-time detection** and **marker recognition** in action during an autonomous landing test:
+
+![Real-Time Testing - Marker Detection](./results/1.png)
+
+The model was deployed on a Raspberry Pi, where it processed real-time video streams from a low-cost camera mounted on the UAV. The image above shows how the model identifies the landing marker, guiding the UAV to its target location.
 
 ## Future Directions
 Future work will focus on:
@@ -46,5 +51,3 @@ Future work will focus on:
 
 ## How to Contribute
 We welcome contributions to this project. If you're interested in collaborating or have suggestions for improvement, please submit a pull request or open an issue on GitHub.
-
- 
