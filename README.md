@@ -48,7 +48,6 @@ Below are images showing the successful detection of markers after training:
 
 <p align="center">
   <img src="./Results/3.JPG" alt="Marker Detection 1" width="450" height="300"/>
-  <img src="./Results/2.JPG" alt="Marker Detection 2" width="450" height="300"/>
 </p>
 
 These images illustrate how the trained YOLOv5 model accurately detects markers at varying altitudes and lighting conditions, which is critical for ensuring reliable autonomous landings.
@@ -57,8 +56,8 @@ These images illustrate how the trained YOLOv5 model accurately detects markers 
 Real-time testing was conducted to evaluate the performance of the trained model in live scenarios. Below are two images demonstrating the **real-time detection** and **marker recognition** in action during an autonomous landing test:
 
 <p align="center">
-  <img src="./Results/Realtime1.png" alt="Real-Time Detection 1" width="450" height="300"/>
-  <img src="./Results/Realtime2.png" alt="Real-Time Detection 2" width="450" height="300"/>
+  <img src="./Results/Realtime1.png" alt="Real-Time Detection 1" width="250" height="250"/>
+  <img src="./Results/Realtime2.png" alt="Real-Time Detection 2" width="250" height="250"/>
 </p>
 
 The model was deployed on a Raspberry Pi, where it processed real-time video streams from a low-cost camera mounted on the UAV. The images above show how the model identifies the landing marker, guiding the UAV to its target location.
