@@ -8,6 +8,7 @@ This project is dedicated to creating a reliable marker detection system for the
 - [Dataset](#dataset)
 - [Methodology](#methodology)
 - [Model Training and Performance](#model-training-and-performance)
+- [Marker Detection After Training](#marker-detection-after-training)
 - [Real-Time Testing](#real-time-testing)
 - [Future Directions](#future-directions)
 - [How to Contribute](#how-to-contribute)
@@ -34,7 +35,24 @@ Extensive training of the YOLOv5 model yielded the following results:
 - **Recall:** Achieved a 99.925 mAP metrics recall at an IoU threshold of 0.6.
 - **F1-Score:** The model reached an F1-Score of 0.99734, reflecting its balanced performance in precision and recall.
 
-  
+Below is an image showing the performance results of the model training:
+
+<p align="center">
+  <img src="./Results/results.png" alt="Model Training and Performance" width="600"/>
+</p>
+
+## Marker Detection After Training
+Once the model was trained, it was evaluated on unseen test data to assess its marker detection capabilities in different scenarios.
+
+Below are images showing the successful detection of markers after training:
+
+<p align="center">
+  <img src="./Results/4.png" alt="Marker Detection 1" width="250" height="250"/>
+  <img src="./Results/3.png" alt="Marker Detection 2" width="250" height="250"/>
+</p>
+
+These images illustrate how the trained YOLOv5 model accurately detects markers at varying altitudes and lighting conditions, which is critical for ensuring reliable autonomous landings.
+
 ## Real-Time Testing
 Real-time testing was conducted to evaluate the performance of the trained model in live scenarios. Below are two images demonstrating the **real-time detection** and **marker recognition** in action during an autonomous landing test:
 
