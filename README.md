@@ -47,8 +47,8 @@ Once the model was trained, it was evaluated on unseen test data to assess its m
 Below are images showing the successful detection of markers after training:
 
 <p align="center">
-  <img src="./Results/3.JPG" alt="Marker Detection 1" width="250" height="250"/>
-  <img src="./Results/2.JPG" alt="Marker Detection 2" width="250" height="250"/>
+  <img src="./Results/3.JPG" alt="Marker Detection 1" width="500" height="350"/>
+  <img src="./Results/2.JPG" alt="Marker Detection 2" width="500" height="350"/>
 </p>
 
 These images illustrate how the trained YOLOv5 model accurately detects markers at varying altitudes and lighting conditions, which is critical for ensuring reliable autonomous landings.
