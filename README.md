@@ -36,11 +36,14 @@ Extensive training of the YOLOv5 model yielded the following results:
 
   
 ## Real-Time Testing
-Real-time testing was conducted to evaluate the performance of the trained model in live scenarios. Below is an image demonstrating the **real-time detection** and **marker recognition** in action during an autonomous landing test:
+Real-time testing was conducted to evaluate the performance of the trained model in live scenarios. Below are two images demonstrating the **real-time detection** and **marker recognition** in action during an autonomous landing test:
 
-![Real-Time Testing - Marker Detection](./Results/Realtime1.png)(./Results/Realtime2.png)
+<p align="center">
+  <img src="./Results/Realtime1.png" alt="Real-Time Detection 1" width="400"/>
+  <img src="./Results/Realtime2.png" alt="Real-Time Detection 2" width="400"/>
+</p>
 
-The model was deployed on a Raspberry Pi, where it processed real-time video streams from a low-cost camera mounted on the UAV. The image above shows how the model identifies the landing marker, guiding the UAV to its target location.
+The model was deployed on a Raspberry Pi, where it processed real-time video streams from a low-cost camera mounted on the UAV. The images above show how the model identifies the landing marker, guiding the UAV to its target location.
 
 ## Future Directions
 Future work will focus on:
