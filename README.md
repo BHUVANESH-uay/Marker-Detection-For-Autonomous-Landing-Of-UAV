@@ -1,73 +1,90 @@
 # Marker Detection For Autonomous Landing Of UAVs
 
-# Overview
-This project is dedicated to creating a reliable marker detection system for the autonomous landing of Unmanned Aerial Vehicles (UAVs). By leveraging advanced deep learning models, particularly YOLOv5, the system is designed to recognize markers in scenes captured by drones flying at various altitudes. The primary objective is to improve the accuracy of autonomous landings, especially in situations where GPS signals are weak or unavailable.
+[![System](https://img.shields.io/badge/System-Autonomous_Landing-success)](#real-time-execution--autonomous-landing)
+[![Model](https://img.shields.io/badge/Model-YOLOv5-blue)](#model-training--methodology)
+[![Hardware](https://img.shields.io/badge/Edge_Computing-Raspberry_Pi-A22846)](#system-architecture--control-flow)
+
+## Overview
+This project presents a complete, vision-based system for the **autonomous landing of Unmanned Aerial Vehicles (UAVs)** in environments where GPS signals are degraded, unavailable, or unreliable. 
+
+Traditional precision landing systems rely heavily on expensive, high-resolution cameras and heavy onboard computers. This project solves that by utilizing a low-cost, low-resolution camera paired with a **Raspberry Pi edge-computing module**. By running a highly optimized YOLOv5 deep learning model, the drone can identify ArUco landing markers in real-time and execute continuous flight path corrections, achieving a precision touchdown with an accuracy of up to 5 cm.
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Dataset](#dataset)
-- [Methodology](#methodology)
-- [Model Training and Performance](#model-training-and-performance)
-- [Marker Detection After Training](#marker-detection-after-training)
-- [Real-Time Testing](#real-time-testing)
+- [Key Features](#key-features)
+- [System Architecture & Control Flow](#system-architecture--control-flow)
+- [The Landing Protocol](#the-landing-protocol)
+- [Model Training & Methodology](#model-training--methodology)
+- [Real-Time Execution & Results](#real-time-execution--results)
 - [Future Directions](#future-directions)
-- [How to Contribute](#how-to-contribute)
 
-## Introduction
-Autonomous landing in areas where GPS signals are compromised poses a significant challenge in modern UAV operations. This project tackles this issue by employing deep learning methods along with low-cost, low-resolution cameras to detect landing markers, thus enabling UAVs to land with greater precision and reliability.
+---
 
-## Dataset
-This project utilizes the TDMBSD dataset, which is tailored for marker detection in UAV landing contexts. The dataset comprises 7,519 high-resolution images taken at various heights, providing a solid foundation for both training and testing the detection models.
+## Key Features
+* **GPS-Denied Precision Landing:** Guarantees safe and accurate drone landings solely using visual feedback, overcoming the limitations of standard GPS-based navigation.
+* **Real-Time Edge Processing:** Eliminates the need for heavy onboard processing by deploying the detection model directly onto a lightweight Raspberry Pi.
+* **Dynamic Altitude Tracking:** Capable of detecting the landing marker from altitudes as high as 50 meters down to the final touchdown phase.
+* **Iterative Trajectory Correction:** Implements a closed-loop control system that continuously adjusts the drone's North/East position and altitude during descent.
 
-## Methodology
-The approach for marker detection and UAV autonomous landing is based on a systematic framework:
+---
 
-- **Data Acquisition and Labeling:** A total of 7,519 images were captured by drones at altitudes between 5 to 50 meters, with annotations performed using the LabelImg tool.
-- **Model Development:** YOLOv5 was chosen due to its excellent balance of speed and accuracy. The model was trained over 300 epochs on the labeled dataset, resulting in high detection accuracy.
-- **Hyperparameter Adjustment:** The model’s performance was further refined through iterative optimization of its hyperparameters.
-- **Real-Time Implementation:** The trained model was integrated and tested in real-time conditions, with a focus on deployment in edge computing environments using Raspberry Pi.
+## System Architecture & Control Flow
+The system operates on a continuous feedback loop between the drone's flight controller and the onboard edge computing unit. 
 
-## Model Training and Performance
-Extensive training of the YOLOv5 model yielded the following results:
+1. **Initialization & Communication:** The system establishes an IP connection with the drone. If synchronization fails, it enters a retry loop until communication is stable.
+2. **Waypoint Navigation:** The armed UAV is directed along a predefined path to its general target area.
+3. **Return to Launch (RTL) & Scan:** The system triggers an RTL command while simultaneously engaging the camera to search for the landing pad marker.
+4. **Target Acquisition:** 
+   * If the marker is *not* detected, the drone loops back to retry the approach.
+   * If the marker *is* detected, the system overrides standard navigation and initiates the autonomous vision-based descent.
 
-- **Detection Accuracy:** Achieved a 75.965% success rate in detecting markers.
-- **Precision:** Attained 99.544 mAP metrics precision at an Intersection over Union (IoU) threshold of 0.6.
-- **Recall:** Achieved a 99.925 mAP metrics recall at an IoU threshold of 0.6.
-- **F1-Score:** The model reached an F1-Score of 0.99734, reflecting its balanced performance in precision and recall.
+---
 
-Below is an image showing the performance results of the model training:
+## The Landing Protocol
+Achieving a 5 cm landing accuracy requires more than just detecting a marker; it requires dynamic flight adjustments. Once the marker is acquired, the UAV executes a **three-phase descent strategy**:
+
+1. **Initial Approach (~7.1 meters):** The drone detects the marker, centers itself roughly over the target, and begins a controlled descent.
+2. **Secondary Adjustment (~5.0 meters):** As the marker grows larger in the camera's field of view, the system recalculates its position and makes finer horizontal adjustments.
+3. **Final Fine-Tuning (~2.3 meters):** The drone makes its final micro-adjustments to its pitch and roll to ensure it is perfectly aligned before cutting power for touchdown.
+
+---
+
+## Model Training & Methodology
+To ensure the drone could recognize the landing pad under various environmental conditions, a YOLOv5 object detection model was trained specifically for aerial marker recognition.
+
+* **Training Data:** The model was trained on a specialized drone-captured dataset featuring over 7,500 images across different altitudes (5m to 50m), lighting conditions (morning, daylight, evening), and camera ISO settings.
+* **Hardware:** Model training was accelerated using an NVIDIA RTX A5000 GPU and AMD Ryzen 9 5900X CPU.
+* **Performance Metrics:** At an Intersection over Union (IoU) threshold of 0.6, the model achieved exceptional reliability for real-world deployment:
+  * **Precision (mAP):** 99.544%
+  * **Recall (mAP):** 99.925%
+  * **F1-Score:** 0.99734
 
 <p align="center">
   <img src="./Results/results.png" alt="Model Training and Performance" width="600"/>
 </p>
 
-## Marker Detection After Training
-Once the model was trained, it was evaluated on unseen test data to assess its marker detection capabilities in different scenarios.
+---
 
-Below are images showing the successful detection of markers after training:
+## Real-Time Execution & Results
+During live flight tests, the edge-computing module processed real-time video streams from the drone. The system successfully demonstrated dynamic adaptation, consistently locking onto the marker despite vibrations, changing sunlight, and descending altitude.
 
-<p align="center">
-  <img src="./Results/3.JPG" alt="Marker Detection 1" width="450" height="300"/>
-</p>
-
-These images illustrate how the trained YOLOv5 model accurately detects markers at varying altitudes and lighting conditions, which is critical for ensuring reliable autonomous landings.
-
-## Real-Time Testing
-Real-time testing was conducted to evaluate the performance of the trained model in live scenarios. Below are two images demonstrating the **real-time detection** and **marker recognition** in action during an autonomous landing test:
+### Real-Time Detection
+Below are examples of the drone's camera feed actively locking onto the landing marker during the descent phase:
 
 <p align="center">
   <img src="./Results/Realtime1.png" alt="Real-Time Detection 1" width="250" height="250"/>
   <img src="./Results/Realtime2.png" alt="Real-Time Detection 2" width="250" height="250"/>
 </p>
 
-The model was deployed on a Raspberry Pi, where it processed real-time video streams from a low-cost camera mounted on the UAV. The images above show how the model identifies the landing marker, guiding the UAV to its target location.
+### Altitude Tracking
+The model proved highly robust at tracking the marker from high altitudes down to the ground.
+
+<p align="center">
+  <img src="./Results/3.JPG" alt="Marker Detection Post-Training" width="450" height="300"/>
+</p>
+
+---
 
 ## Future Directions
-Future work will focus on:
-
-- Enhancing detection accuracy under different environmental conditions.
-- Incorporating advanced edge computing techniques to improve real-time performance.
-- Expanding the dataset to include a wider variety of scenarios.
-
-## How to Contribute
-We welcome contributions to this project. If you're interested in collaborating or have suggestions for improvement, please submit a pull request or open an issue on GitHub.
+Future development of this autonomous landing system will focus on:
+* **Complex Environmental Adaptation:** Upgrading the vision pipeline (potentially testing YOLOv11) for highly cluttered operational environments or moving landing platforms (e.g., naval vessels).
+* **Sensor Fusion Integration:** Incorporating LiDAR for precise 3D spatial awareness and Radar to allow for autonomous landings in fog, heavy rain, or complete darkness.
